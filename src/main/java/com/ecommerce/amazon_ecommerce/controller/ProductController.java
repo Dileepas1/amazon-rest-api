@@ -1,0 +1,36 @@
+package com.ecommerce.amazon_ecommerce.controller;
+
+import com.ecommerce.amazon_ecommerce.model.Product;
+import com.ecommerce.amazon_ecommerce.service.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/product")
+public class ProductController {
+
+    private ProductService productService;
+
+    @Autowired
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    @GetMapping("/products")
+    public List<Product> findAll(){
+        return productService.findAll();
+    }
+
+    @PostMapping("/products")
+    public List<Product> getItem(@RequestBody Product product){
+        return productService.itemSave(product);
+    }
+
+    @DeleteMapping(value = "/products/{productId}")
+    public List<Product> deleteByProductId(@PathVariable long productId){
+        return productService.deleteProduct(productId);
+    }
+
+}
