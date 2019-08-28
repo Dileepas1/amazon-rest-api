@@ -1,8 +1,10 @@
 package com.ecommerce.amazon_ecommerce.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import javax.persistence.*;
+import java.util.List;
 
 @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="productId")
 @Entity
@@ -27,7 +29,20 @@ public class Product {
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @OneToMany(mappedBy = "productCart")
+    @JsonIgnore
+    List<CartProduct> products;
+
+
     protected Product() {
+    }
+
+    public List<CartProduct> getProducts() {
+        return products;
+    }
+
+    public void setProducts(List<CartProduct> products) {
+        this.products = products;
     }
 
     public long getProductId() {

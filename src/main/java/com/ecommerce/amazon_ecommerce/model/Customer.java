@@ -24,8 +24,20 @@ public class Customer {
     @JsonIgnore
     List<Address> address;
 
+    @OneToMany(mappedBy = "customerCart")
+    @JsonIgnore
+    List<CartProduct> cartProduct;
+
     protected Customer() {
 
+    }
+
+    public List<CartProduct> getCartProduct() {
+        return cartProduct;
+    }
+
+    public void setCartProduct(List<CartProduct> cartProduct) {
+        this.cartProduct = cartProduct;
     }
 
     public long getCustomerId() {

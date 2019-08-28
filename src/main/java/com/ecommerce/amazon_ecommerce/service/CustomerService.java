@@ -1,12 +1,18 @@
 package com.ecommerce.amazon_ecommerce.service;
 
 import com.ecommerce.amazon_ecommerce.model.Address;
+import com.ecommerce.amazon_ecommerce.model.CartProduct;
 import com.ecommerce.amazon_ecommerce.model.Customer;
+import com.ecommerce.amazon_ecommerce.model.Product;
 import com.ecommerce.amazon_ecommerce.repository.AddressRepository;
+import com.ecommerce.amazon_ecommerce.repository.CartProductRepository;
 import com.ecommerce.amazon_ecommerce.repository.CustomerRepository;
+import com.ecommerce.amazon_ecommerce.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -14,11 +20,14 @@ public class CustomerService {
 
     private CustomerRepository customerRepository;
     private AddressRepository addressRepository;
+    private CartProductRepository cartProductRepository;
+    private ProductRepository productRepository;
 
-    @Autowired
-    public CustomerService(CustomerRepository customerRepository, AddressRepository addressRepository) {
+    public CustomerService(CustomerRepository customerRepository, AddressRepository addressRepository, CartProductRepository cartProductRepository, ProductRepository productRepository) {
         this.customerRepository = customerRepository;
         this.addressRepository = addressRepository;
+        this.cartProductRepository = cartProductRepository;
+        this.productRepository = productRepository;
     }
 
     public List<Customer> getAll(){
@@ -41,4 +50,30 @@ public class CustomerService {
         Customer customer=customerRepository.findCustomerByCustomerId(customerId);
         return addressRepository.findAddressByCustomer(customer);
     }
+
+    public List<CartProduct> getCartProducts(long customerId){
+        return cartProductRepository.findCartProductByCustomerCart(customerRepository.findCustomerByCustomerId(customerId));
+    }
+
+    public List<CartProduct> addProductsToCart(long customerId, long productId, int quantity) {
+        Customer customer = customerRepository.findCustomerByCustomerId(customerId);
+        Product product = productRepository.findProductByProductId(productId);
+        CartProduct cartProduct = new CartProduct();
+        cartProduct.setCustomerCart(customer);
+        cartProduct.setProductCart(product);
+        cartProduct.setQuantity(quantity);
+        cartProductRepository.save(cartProduct);
+        return getCartProducts(customerId);
+        
+    }
+
+    public List<CartProduct> updateQuantityInCart(long customerId, int quantity,long productId) {
+        Customer customer = customerRepository.findCustomerByCustomerId(customerId);
+        Product product = productRepository.findProductByProductId(productId);
+        CartProduct cartProduct=cartProductRepository.getCartProductByCustomerCartAndProductCart(customer,product);
+        long id=cartProduct.getId();
+        cartProductRepository.setCartProductByCustomerCart(id,quantity);
+        return getCartProducts(customerId);
+    }
+
 }

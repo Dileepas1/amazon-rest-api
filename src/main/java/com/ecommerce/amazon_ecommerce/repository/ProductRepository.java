@@ -20,4 +20,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("select p from Product p where productPrice <= ?1 ")
     List<Product> findByProductPrice(double price);
+
+    Product findProductByProductId(long productId);
 }
