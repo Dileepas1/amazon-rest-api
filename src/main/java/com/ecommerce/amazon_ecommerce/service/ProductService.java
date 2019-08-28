@@ -17,14 +17,23 @@ public class ProductService {
         return repository.findAll();
     }
 
-    public List<Product> itemSave(Product product){
+    public List<Product> itemSave(Product product)
+    {
         repository.save(product);
         return repository.findAll();
     }
 
-    public List<Product> deleteProduct(long id){
-
+    public List<Product> deleteProduct(long id)
+    {
         repository.deleteByProductId(id);
         return repository.findAll();
+    }
+
+    public List<Product> findByProductName(String productName){
+        return repository.findByProductName(productName);
+    }
+
+    public List<Product> filterProductByPrice(double price){
+        return repository.findByProductPrice(price);
     }
 }

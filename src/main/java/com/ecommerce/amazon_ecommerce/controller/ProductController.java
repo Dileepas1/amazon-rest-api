@@ -33,4 +33,14 @@ public class ProductController {
         return productService.deleteProduct(productId);
     }
 
+    @GetMapping("/search/{productName}")
+    public List<Product> searchItem(@PathVariable String productName){
+        return productService.findByProductName(productName);
+    }
+
+    @GetMapping("/filter/{productPrice}")
+    public List<Product> filterItem(@PathVariable double productPrice){
+        return productService.filterProductByPrice(productPrice);
+    }
+
 }

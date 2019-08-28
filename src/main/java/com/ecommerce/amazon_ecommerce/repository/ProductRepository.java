@@ -9,11 +9,15 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    List<Product> findByProductName(String product_name);
+
+    @Query("select p from Product p where productName like  %?1%  ")
+    List<Product> findByProductName(@Param("productName") String productName);
 
     @Modifying
     @Transactional
     @Query("delete from Product where productId = ?1")
     void deleteByProductId(@Param("id") long id);
 
+    @Query("select p from Product p where productPrice <= ?1 ")
+    List<Product> findByProductPrice(double price);
 }

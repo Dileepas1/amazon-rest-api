@@ -2,13 +2,12 @@ package com.ecommerce.amazon_ecommerce.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
 import javax.persistence.*;
+
 @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="productId")
 @Entity
 @Table(name = "product")
 public class Product {
-
 
     @Id
     private long productId;
