@@ -54,4 +54,9 @@ public class CustomerController {
     public List<CartProduct> updateCart(@PathVariable long customerId,@PathVariable long productId, @PathVariable int quantity){
         return customerService.updateQuantityInCart(customerId,quantity,productId);
     }
+
+    @DeleteMapping("/{customerId}/cart/delete/{id}")
+    public List<CartProduct> deleteItemInCart(@PathVariable long customerId, @PathVariable long id){
+        return customerService.deleteItemInCart(customerId,id);
+    }
 }

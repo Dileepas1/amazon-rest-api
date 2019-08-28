@@ -76,4 +76,8 @@ public class CustomerService {
         return getCartProducts(customerId);
     }
 
+    public List<CartProduct> deleteItemInCart(long customerId, long id) {
+        cartProductRepository.deleteById(id);
+        return getCartProducts(customerId);
+    }
 }

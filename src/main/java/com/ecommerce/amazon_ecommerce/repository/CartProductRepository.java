@@ -21,7 +21,4 @@ public interface CartProductRepository extends JpaRepository<CartProduct, Long> 
     void setCartProductByCustomerCart(@Param("id") long id,@Param("quantity") int quantity);
 
     CartProduct getCartProductByCustomerCartAndProductCart(Customer customer, Product product);
-
-    CartProduct getCartProductByCustomerCart(Customer customer);
-
 }
