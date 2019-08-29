@@ -1,4 +1,4 @@
-package com.ecommerce.amazon_ecommerce.DTO;
+package com.ecommerce.amazon_ecommerce.request_dto;
 
 public class AddressDto {
 

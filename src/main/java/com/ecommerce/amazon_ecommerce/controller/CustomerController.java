@@ -1,6 +1,7 @@
 package com.ecommerce.amazon_ecommerce.controller;
 
-import com.ecommerce.amazon_ecommerce.DTO.AddressDto;
+import com.ecommerce.amazon_ecommerce.request_dto.AddressDto;
+import com.ecommerce.amazon_ecommerce.request_dto.CartProductDto;
 import com.ecommerce.amazon_ecommerce.model.Address;
 import com.ecommerce.amazon_ecommerce.model.CartProduct;
 import com.ecommerce.amazon_ecommerce.model.Customer;
@@ -46,9 +47,9 @@ public class CustomerController {
         return customerService.getCartProducts(customerId);
     }
 
-    @PostMapping("/{customerId}/cart/{productId}/{quantity}")
-    public List<CartProduct> addToCart(@PathVariable long customerId,@PathVariable long productId, @PathVariable int quantity){
-        return customerService.addProductsToCart(customerId, productId, quantity);
+    @PostMapping("/{customerId}/cart")
+    public List<CartProduct> addToCart(@RequestBody CartProductDto cartProductDto){
+        return customerService.addProductsToCart(cartProductDto);
     }
 
     @PutMapping("/{customerId}/cart/update/{productId}/{quantity}")

@@ -1,6 +1,6 @@
 package com.ecommerce.amazon_ecommerce.controller;
 
-import com.ecommerce.amazon_ecommerce.DTO.ProductDto;
+import com.ecommerce.amazon_ecommerce.request_dto.ProductDto;
 import com.ecommerce.amazon_ecommerce.model.Product;
 import com.ecommerce.amazon_ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;

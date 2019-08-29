@@ -1,6 +1,6 @@
 package com.ecommerce.amazon_ecommerce.service;
 
-import com.ecommerce.amazon_ecommerce.DTO.ProductDto;
+import com.ecommerce.amazon_ecommerce.request_dto.ProductDto;
 import com.ecommerce.amazon_ecommerce.model.Category;
 import com.ecommerce.amazon_ecommerce.model.Product;
 import com.ecommerce.amazon_ecommerce.repository.CategoryRepository;
@@ -13,14 +13,16 @@ import java.util.List;
 @Service
 public class ProductService {
 
-    @Autowired
-    ProductRepository repository;
+    private ProductRepository repository;
+    private CategoryRepository categoryRepository;
+    private Product product;
 
     @Autowired
-    CategoryRepository categoryRepository;
-
-    @Autowired
-    Product product;
+    public ProductService(ProductRepository repository, CategoryRepository categoryRepository, Product product) {
+        this.repository = repository;
+        this.categoryRepository = categoryRepository;
+        this.product = product;
+    }
 
     public List<Product> findAll(){
         return repository.findAll();
@@ -36,7 +38,7 @@ public class ProductService {
 
         int categoryNo = productDto.getCategory();
         Category category = categoryRepository.findCategoryByCategoryId(categoryNo);
-        System.out.println(category);
+
         product.setCategory(category);
         repository.save(product);
 

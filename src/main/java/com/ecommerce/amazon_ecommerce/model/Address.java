@@ -51,9 +51,7 @@ public class Address {
         return pinCode;
     }
 
-    public void setPinCode(String pinCode) {
-        this.pinCode = pinCode;
-    }
+    public void setPinCode(String pinCode) { this.pinCode = pinCode; }
 
     public String getState() {
         return state;

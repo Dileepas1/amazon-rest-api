@@ -20,8 +20,6 @@ public class CartProduct {
     @Column(name="quantity")
     private int quantity;
 
-    public CartProduct(){}
-
     public long getId() {
         return id;
     }
@@ -30,35 +28,25 @@ public class CartProduct {
         this.id = id;
     }
 
-    public Customer getCustomerCart() {
-        return customerCart;
-    }
+    public Customer getCustomerCart() { return customerCart; }
 
-    public void setCustomerCart(Customer customerCart) {
-        this.customerCart = customerCart;
-    }
+    public void setCustomerCart(Customer customerCart) { this.customerCart = customerCart; }
 
-    public Product getProductCart() {
-        return productCart;
-    }
+    public Product getProductCart() { return productCart; }
 
-    public void setProductCart(Product productCart) {
-        this.productCart = productCart;
-    }
+    public void setProductCart(Product productCart) { this.productCart = productCart; }
 
     public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
+    public void setQuantity(int quantity) { this.quantity = quantity; }
 
     @Override
     public String toString() {
         return "CartProduct{" +
-                "customerCart=" + customerCart +
-                ", productCart=" + productCart +
+                "customer=" + customerCart +
+                ", product=" + productCart +
                 ", quantity=" + quantity +
                 '}';
     }
