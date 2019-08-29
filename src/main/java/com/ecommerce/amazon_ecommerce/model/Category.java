@@ -29,9 +29,7 @@ public class Category {
         this.products = products;
     }
 
-    protected Category(){
-
-    }
+    protected Category(){}
 
     public int getCategoryId() {
         return categoryId;

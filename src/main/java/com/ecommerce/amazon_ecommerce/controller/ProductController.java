@@ -1,5 +1,6 @@
 package com.ecommerce.amazon_ecommerce.controller;
 
+import com.ecommerce.amazon_ecommerce.DTO.ProductDto;
 import com.ecommerce.amazon_ecommerce.model.Product;
 import com.ecommerce.amazon_ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,8 @@ public class ProductController {
     }
 
     @PostMapping("/products")
-    public List<Product> getItem(@RequestBody Product product){
-        return productService.itemSave(product);
+    public List<Product> getItem(@RequestBody ProductDto productDto){
+        return productService.itemSave(productDto);
     }
 
     @DeleteMapping(value = "/products/{productId}")

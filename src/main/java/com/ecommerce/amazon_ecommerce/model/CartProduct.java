@@ -1,8 +1,5 @@
 package com.ecommerce.amazon_ecommerce.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import org.springframework.context.annotation.Bean;
-
 import javax.persistence.*;
 
 @Entity
@@ -25,8 +22,16 @@ public class CartProduct {
 
     public CartProduct(){}
 
-   public Customer getCustomerCart() {
-       return customerCart;
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Customer getCustomerCart() {
+        return customerCart;
     }
 
     public void setCustomerCart(Customer customerCart) {
@@ -49,19 +54,11 @@ public class CartProduct {
         this.quantity = quantity;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
     @Override
     public String toString() {
         return "CartProduct{" +
-                "customerCart=" + customerCart.getCustomerId() +
-                ", productCart=" + productCart.getProductId() +
+                "customerCart=" + customerCart +
+                ", productCart=" + productCart +
                 ", quantity=" + quantity +
                 '}';
     }

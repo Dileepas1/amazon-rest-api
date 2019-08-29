@@ -1,5 +1,6 @@
 package com.ecommerce.amazon_ecommerce.service;
 
+import com.ecommerce.amazon_ecommerce.DTO.AddressDto;
 import com.ecommerce.amazon_ecommerce.model.Address;
 import com.ecommerce.amazon_ecommerce.model.CartProduct;
 import com.ecommerce.amazon_ecommerce.model.Customer;
@@ -9,10 +10,7 @@ import com.ecommerce.amazon_ecommerce.repository.CartProductRepository;
 import com.ecommerce.amazon_ecommerce.repository.CustomerRepository;
 import com.ecommerce.amazon_ecommerce.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
-
-import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -22,6 +20,8 @@ public class CustomerService {
     private AddressRepository addressRepository;
     private CartProductRepository cartProductRepository;
     private ProductRepository productRepository;
+    @Autowired
+    Address address;
 
     public CustomerService(CustomerRepository customerRepository, AddressRepository addressRepository, CartProductRepository cartProductRepository, ProductRepository productRepository) {
         this.customerRepository = customerRepository;
@@ -39,9 +39,19 @@ public class CustomerService {
         return addressRepository.findAddressByCustomer(customer);
     }
 
-    public List<Address> itemSave(Address address,long customerId) {
+    public List<Address> itemSave(AddressDto addressDto) {
+        address.setCity(addressDto.getCity());
+        address.setPinCode(addressDto.getPinCode());
+        address.setState(addressDto.getState());
+        address.setStreet(addressDto.getStreet());
+
+        long personId = addressDto.getCustomerId();
+        Customer customer = customerRepository.findCustomerByCustomerId(personId);
+
+        System.out.println(customer);
+        address.setCustomer(customer);
         addressRepository.save(address);
-        Customer customer=customerRepository.findCustomerByCustomerId(customerId);
+
         return addressRepository.findAddressByCustomer(customer);
     }
 

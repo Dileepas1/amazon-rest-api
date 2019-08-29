@@ -3,10 +3,15 @@ package com.ecommerce.amazon_ecommerce.model;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import org.springframework.context.annotation.Scope;
+import org.springframework.stereotype.Component;
+
 import javax.persistence.*;
 import java.util.List;
 
 @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="productId")
+@Component
+@Scope(value = "prototype")//,proxyMode = ScopedProxyMode.TARGET_CLASS)
 @Entity
 @Table(name = "product")
 public class Product {
@@ -33,17 +38,7 @@ public class Product {
     @JsonIgnore
     List<CartProduct> products;
 
-
-    protected Product() {
-    }
-
-    public List<CartProduct> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<CartProduct> products) {
-        this.products = products;
-    }
+    protected Product() {}
 
     public long getProductId() {
         return productId;
@@ -92,7 +87,6 @@ public class Product {
     public void setProductDescription(String productDescription) {
         this.productDescription = productDescription;
     }
-
 
     public Category getCategory() {
         return category;

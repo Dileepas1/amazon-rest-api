@@ -28,17 +28,7 @@ public class Customer {
     @JsonIgnore
     List<CartProduct> cartProduct;
 
-    protected Customer() {
-
-    }
-
-    public List<CartProduct> getCartProduct() {
-        return cartProduct;
-    }
-
-    public void setCartProduct(List<CartProduct> cartProduct) {
-        this.cartProduct = cartProduct;
-    }
+    protected Customer() {}
 
     public long getCustomerId() {
         return customerId;
@@ -60,7 +50,9 @@ public class Customer {
         return email;
     }
 
-    public void setEmail(String email) { this.email = email; }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getPhoneNo() {
         return phoneNo;
@@ -84,6 +76,14 @@ public class Customer {
 
     public void setAddress(List<Address> address) {
         this.address = address;
+    }
+
+    public List<CartProduct> getCartProduct() {
+        return cartProduct;
+    }
+
+    public void setCartProduct(List<CartProduct> cartProduct) {
+        this.cartProduct = cartProduct;
     }
 
     @Override

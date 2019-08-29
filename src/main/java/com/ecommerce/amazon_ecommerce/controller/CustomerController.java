@@ -1,5 +1,6 @@
 package com.ecommerce.amazon_ecommerce.controller;
 
+import com.ecommerce.amazon_ecommerce.DTO.AddressDto;
 import com.ecommerce.amazon_ecommerce.model.Address;
 import com.ecommerce.amazon_ecommerce.model.CartProduct;
 import com.ecommerce.amazon_ecommerce.model.Customer;
@@ -31,8 +32,8 @@ public class CustomerController {
     }
 
     @PostMapping("/{customerId}/address")
-    public List<Address> storeAddress(@RequestBody Address address, @PathVariable long customerId){
-        return customerService.itemSave(address,customerId);
+    public List<Address> storeAddress(@RequestBody AddressDto addressDto, @PathVariable long customerId){
+        return customerService.itemSave(addressDto);
     }
 
     @DeleteMapping(value = "/{customerId}/address/{addressId}")
