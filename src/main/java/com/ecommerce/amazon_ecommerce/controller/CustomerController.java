@@ -18,47 +18,47 @@ public class CustomerController {
     private CustomerService customerService;
 
     @Autowired
-    public CustomerController(CustomerService customerService) {
+    private CustomerController(CustomerService customerService) {
         this.customerService = customerService;
     }
 
     @GetMapping("/customers")
-    public List<Customer> displayAll(){
+    private List<Customer> displayAll(){
         return customerService.getAll();
     }
 
     @GetMapping("/{customerId}/address")
-    public List<Address> displayAllAddress(@PathVariable long customerId){
+    private List<Address> displayAllAddress(@PathVariable long customerId){
         return customerService.displayAddress(customerId);
     }
 
     @PostMapping("/{customerId}/address")
-    public List<Address> storeAddress(@RequestBody AddressDto addressDto, @PathVariable long customerId){
+    private List<Address> storeAddress(@RequestBody AddressDto addressDto, @PathVariable long customerId){
         return customerService.itemSave(addressDto);
     }
 
     @DeleteMapping(value = "/{customerId}/address/{addressId}")
-    public List<Address> deleteByProductId(@PathVariable long customerId, @PathVariable long addressId){
+    private List<Address> deleteByProductId(@PathVariable long customerId, @PathVariable long addressId){
         return customerService.deleteAddress(customerId, addressId);
     }
 
     @GetMapping("{customerId}/cart")
-    public List<CartProduct> displayCart(@PathVariable long customerId){
+    private List<CartProduct> displayCart(@PathVariable long customerId){
         return customerService.getCartProducts(customerId);
     }
 
     @PostMapping("/{customerId}/cart")
-    public List<CartProduct> addToCart(@RequestBody CartProductDto cartProductDto){
+    private List<CartProduct> addToCart(@RequestBody CartProductDto cartProductDto){
         return customerService.addProductsToCart(cartProductDto);
     }
 
     @PutMapping("/{customerId}/cart/update/{productId}/{quantity}")
-    public List<CartProduct> updateCart(@PathVariable long customerId,@PathVariable long productId, @PathVariable int quantity){
+    private List<CartProduct> updateCart(@PathVariable long customerId,@PathVariable long productId, @PathVariable int quantity){
         return customerService.updateQuantityInCart(customerId,quantity,productId);
     }
 
     @DeleteMapping("/{customerId}/cart/delete/{id}")
-    public List<CartProduct> deleteItemInCart(@PathVariable long customerId, @PathVariable long id){
+    private List<CartProduct> deleteItemInCart(@PathVariable long customerId, @PathVariable long id){
         return customerService.deleteItemInCart(customerId,id);
     }
 }

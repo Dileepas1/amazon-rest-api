@@ -15,32 +15,32 @@ public class ProductController {
     private ProductService productService;
 
     @Autowired
-    public ProductController(ProductService productService) {
+    private ProductController(ProductService productService) {
         this.productService = productService;
     }
 
     @GetMapping("/products")
-    public List<Product> findAll(){
+    private List<Product> findAll(){
         return productService.findAll();
     }
 
     @PostMapping("/products")
-    public List<Product> getItem(@RequestBody ProductDto productDto){
+    private List<Product> getItem(@RequestBody ProductDto productDto){
         return productService.itemSave(productDto);
     }
 
     @DeleteMapping(value = "/products/{productId}")
-    public List<Product> deleteByProductId(@PathVariable long productId){
+    private List<Product> deleteByProductId(@PathVariable long productId){
         return productService.deleteProduct(productId);
     }
 
     @GetMapping("/search/{productName}")
-    public List<Product> searchItem(@PathVariable String productName){
+    private List<Product> searchItem(@PathVariable String productName){
         return productService.findByProductName(productName);
     }
 
     @GetMapping("/filter/{productPrice}")
-    public List<Product> filterItem(@PathVariable double productPrice){
+    private List<Product> filterItem(@PathVariable double productPrice){
         return productService.filterProductByPrice(productPrice);
     }
 

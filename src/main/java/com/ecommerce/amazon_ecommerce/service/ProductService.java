@@ -52,7 +52,7 @@ public class ProductService {
     }
 
     public List<Product> findByProductName(String productName){
-        return repository.findByProductName(productName);
+        return repository.findByProductNameContaining(productName);
     }
 
     public List<Product> filterProductByPrice(double price){

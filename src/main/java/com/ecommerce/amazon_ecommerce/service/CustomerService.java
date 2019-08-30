@@ -38,7 +38,7 @@ public class CustomerService {
 
     public List<Address> displayAddress(long customerId){
         Customer customer=customerRepository.findCustomerByCustomerId(customerId);
-        return addressRepository.findAddressByCustomer(customer);
+        return customer.getAddress();
     }
 
     public List<Address> itemSave(AddressDto addressDto) {
@@ -53,13 +53,13 @@ public class CustomerService {
         address.setCustomer(customer);
         addressRepository.save(address);
 
-        return addressRepository.findAddressByCustomer(customer);
+        return customer.getAddress();
     }
 
     public List<Address> deleteAddress(long customerId, long addressId) {
         addressRepository.deleteById(addressId);
         Customer customer=customerRepository.findCustomerByCustomerId(customerId);
-        return addressRepository.findAddressByCustomer(customer);
+        return customer.getAddress();
     }
 
     public List<CartProduct> getCartProducts(long customerId){
@@ -76,8 +76,7 @@ public class CustomerService {
         cartProduct.setProductCart(product);
         cartProduct.setQuantity(cartProductDto.getQuantity());
         cartProductRepository.save(cartProduct);
-        return getCartProducts(customerId);
-
+        return customer.getCartProduct();
     }
 
     public List<CartProduct> updateQuantityInCart(long customerId, int quantity,long productId) {
@@ -86,7 +85,7 @@ public class CustomerService {
         CartProduct cartProduct=cartProductRepository.getCartProductByCustomerCartAndProductCart(customer,product);
         long id=cartProduct.getId();
         cartProductRepository.setCartProductByCustomerCart(id,quantity);
-        return getCartProducts(customerId);
+        return customer.getCartProduct();
     }
 
     public List<CartProduct> deleteItemInCart(long customerId, long id) {

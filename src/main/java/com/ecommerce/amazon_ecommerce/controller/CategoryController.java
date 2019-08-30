@@ -16,12 +16,12 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @Autowired
-    public CategoryController(CategoryService categoryService) {
+    private CategoryController(CategoryService categoryService) {
         this.categoryService = categoryService;
     }
 
     @GetMapping("/categories")
-    public List<Category> displayAll(){
+    private List<Category> displayAll(){
         return categoryService.getAll();
     }
 }
