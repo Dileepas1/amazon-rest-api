@@ -24,7 +24,7 @@ public class ProductController {
         return productService.findAll();
     }
 
-    @PostMapping("/products")
+    @PostMapping("/addProducts")
     private List<Product> getItem(@RequestBody ProductDto productDto){
         return productService.itemSave(productDto);
     }

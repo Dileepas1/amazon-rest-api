@@ -27,6 +27,8 @@ public class Customer {
     @Column(name = "phone_no")
     private String phoneNo;
     private int age;
+    private String password;
+    private String role;
 
     @OneToMany(mappedBy = "customer")
     @JsonIgnore
@@ -36,5 +38,5 @@ public class Customer {
     @JsonIgnore
     List<CartProduct> cartProduct;
 
-    protected Customer() {}
+    public Customer() {}
 }

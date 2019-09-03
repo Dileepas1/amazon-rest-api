@@ -10,7 +10,9 @@ import com.ecommerce.amazon_ecommerce.repository.AddressRepository;
 import com.ecommerce.amazon_ecommerce.repository.CartProductRepository;
 import com.ecommerce.amazon_ecommerce.repository.CustomerRepository;
 import com.ecommerce.amazon_ecommerce.repository.ProductRepository;
+import com.ecommerce.amazon_ecommerce.request_dto.CustomerDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -91,5 +93,16 @@ public class CustomerService {
     public List<CartProduct> deleteItemInCart(long customerId, long id) {
         cartProductRepository.deleteById(id);
         return getCartProducts(customerId);
+    }
+
+    public Customer addCustomer(CustomerDto customerDto) {
+        Customer customer = new Customer();
+        customer.setUsername(customerDto.getUsername());
+        customer.setEmail(customerDto.getEmail());
+        customer.setPhoneNo(customerDto.getPhoneNo());
+        customer.setAge(customerDto.getAge());
+        customer.setPassword(new BCryptPasswordEncoder().encode(customerDto.getPassword()));
+        customerRepository.save(customer);
+        return customerRepository.findCustomerByPhoneNo(customerDto.getPhoneNo());
     }
 }

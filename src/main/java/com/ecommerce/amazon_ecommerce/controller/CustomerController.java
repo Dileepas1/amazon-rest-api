@@ -5,6 +5,7 @@ import com.ecommerce.amazon_ecommerce.request_dto.CartProductDto;
 import com.ecommerce.amazon_ecommerce.model.Address;
 import com.ecommerce.amazon_ecommerce.model.CartProduct;
 import com.ecommerce.amazon_ecommerce.model.Customer;
+import com.ecommerce.amazon_ecommerce.request_dto.CustomerDto;
 import com.ecommerce.amazon_ecommerce.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +26,11 @@ public class CustomerController {
     @GetMapping("/customers")
     private List<Customer> displayAll(){
         return customerService.getAll();
+    }
+
+    @PostMapping("/register")
+    private Customer customerSignUp(@RequestBody CustomerDto customerDto){
+        return customerService.addCustomer(customerDto);
     }
 
     @GetMapping("/{customerId}/address")
