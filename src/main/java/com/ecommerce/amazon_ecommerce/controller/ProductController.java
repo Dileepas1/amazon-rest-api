@@ -6,10 +6,11 @@ import com.ecommerce.amazon_ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/product")
+//@RequestMapping("/product")
 public class ProductController {
 
     private ProductService productService;
@@ -19,6 +20,11 @@ public class ProductController {
         this.productService = productService;
     }
 
+    @GetMapping("/login")
+    @ResponseBody
+    private String display(){
+        return "Successfull login";
+    }
     @GetMapping("/products")
     private List<Product> findAll(){
         return productService.findAll();
@@ -43,5 +49,11 @@ public class ProductController {
     private List<Product> filterItem(@PathVariable double productPrice){
         return productService.filterProductByPrice(productPrice);
     }
+
+    @RequestMapping("/user")
+    public Principal user(Principal principal){
+        return principal;
+    }
+
 
 }

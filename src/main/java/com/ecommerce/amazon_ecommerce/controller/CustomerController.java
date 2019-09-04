@@ -10,6 +10,7 @@ import com.ecommerce.amazon_ecommerce.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -66,5 +67,10 @@ public class CustomerController {
     @DeleteMapping("/{customerId}/cart/delete/{id}")
     private List<CartProduct> deleteItemInCart(@PathVariable long customerId, @PathVariable long id){
         return customerService.deleteItemInCart(customerId,id);
+    }
+
+    @RequestMapping("/user")
+    public Principal user(Principal principal){
+        return principal;
     }
 }
