@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.management.relation.Role;
 import javax.persistence.*;
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class Customer {
     private String phoneNo;
     private int age;
     private String password;
-    private String role;
+
 
     @OneToMany(mappedBy = "customer")
     @JsonIgnore
@@ -37,6 +38,10 @@ public class Customer {
     @OneToMany(mappedBy = "customerCart")
     @JsonIgnore
     List<CartProduct> cartProduct;
+
+    @OneToMany(mappedBy = "customer",fetch = FetchType.EAGER)
+    @JsonIgnore
+    List<Roles> roles;
 
     public Customer() {}
 }

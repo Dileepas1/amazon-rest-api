@@ -4,10 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class UserDetailsImpl implements UserDetails {
     private Customer customer;
@@ -19,8 +16,10 @@ public class UserDetailsImpl implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new HashSet<>();
-        String roles = customer.getRole();
-        authorities.add(new SimpleGrantedAuthority("ROLE_"+roles));
+         List<Roles> roles = customer.getRoles();
+         for(Roles roles1:roles) {
+             authorities.add(new SimpleGrantedAuthority("ROLE_" + roles1.getName()));
+         }
         return authorities;
     }
 

@@ -39,6 +39,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/customer/register").permitAll()
                 .antMatchers("/product/addProducts").hasRole("ADMIN")
                 .antMatchers("/customer/customers").hasRole("ADMIN")
+                .antMatchers("/customer/{customerId}/address").hasRole("USER")
                 .antMatchers("/**").authenticated()
                 .and()
                 .formLogin();
