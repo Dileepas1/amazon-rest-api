@@ -43,7 +43,7 @@ public class CustomerService {
         return customer.getAddress();
     }
 
-    public List<Address> itemSave(AddressDto addressDto) {
+    public List<Address> addressSave(AddressDto addressDto) {
         address.setCity(addressDto.getCity());
         address.setPinCode(addressDto.getPinCode());
         address.setState(addressDto.getState());
@@ -81,12 +81,14 @@ public class CustomerService {
         return customer.getCartProduct();
     }
 
-    public List<CartProduct> updateQuantityInCart(long customerId, int quantity,long productId) {
+    public List<CartProduct> updateQuantityInCart(long customerId,CartProductDto cartProductDto) {
+
         Customer customer = customerRepository.findCustomerByCustomerId(customerId);
-        Product product = productRepository.findProductByProductId(productId);
+        Product product = productRepository.findProductByProductId(cartProductDto.getProductId());
         CartProduct cartProduct=cartProductRepository.getCartProductByCustomerCartAndProductCart(customer,product);
-        long id=cartProduct.getId();
-        cartProductRepository.setCartProductByCustomerCart(id,quantity);
+
+        cartProductRepository.setCartProductByCustomerCart(cartProduct.getId(),cartProductDto.getQuantity());
+
         return customer.getCartProduct();
     }
 

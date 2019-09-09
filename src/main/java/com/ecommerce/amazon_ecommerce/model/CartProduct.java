@@ -1,18 +1,12 @@
 package com.ecommerce.amazon_ecommerce.model;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "cart_product")
 @Data
-@Getter
-@Setter
-@ToString
 public class CartProduct {
 
     @Id

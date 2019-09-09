@@ -6,11 +6,10 @@ import com.ecommerce.amazon_ecommerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController
-//@RequestMapping("/product")
+@RequestMapping("/product")
 public class ProductController {
 
     private ProductService productService;
@@ -20,22 +19,17 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @GetMapping("/login")
-    @ResponseBody
-    private String display(){
-        return "Successfull login";
-    }
     @GetMapping("/products")
     private List<Product> findAll(){
         return productService.findAll();
     }
 
     @PostMapping("/addProducts")
-    private List<Product> getItem(@RequestBody ProductDto productDto){
+    private List<Product> addItem(@RequestBody ProductDto productDto){
         return productService.itemSave(productDto);
     }
 
-    @DeleteMapping(value = "/products/{productId}")
+    @DeleteMapping(value = "/deleteProduct/{productId}")
     private List<Product> deleteByProductId(@PathVariable long productId){
         return productService.deleteProduct(productId);
     }
@@ -49,11 +43,4 @@ public class ProductController {
     private List<Product> filterItem(@PathVariable double productPrice){
         return productService.filterProductByPrice(productPrice);
     }
-
-    @RequestMapping("/user")
-    public Principal user(Principal principal){
-        return principal;
-    }
-
-
 }

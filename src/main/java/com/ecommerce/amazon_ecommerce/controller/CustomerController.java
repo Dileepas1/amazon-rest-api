@@ -10,7 +10,6 @@ import com.ecommerce.amazon_ecommerce.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -40,12 +39,12 @@ public class CustomerController {
     }
 
     @PostMapping("/{customerId}/address")
-    private List<Address> storeAddress(@RequestBody AddressDto addressDto, @PathVariable long customerId){
-        return customerService.itemSave(addressDto);
+    private List<Address> addAddress(@RequestBody AddressDto addressDto, @PathVariable long customerId){
+        return customerService.addressSave(addressDto);
     }
 
     @DeleteMapping(value = "/{customerId}/address/{addressId}")
-    private List<Address> deleteByProductId(@PathVariable long customerId, @PathVariable long addressId){
+    private List<Address> removeAddress(@PathVariable long customerId, @PathVariable long addressId){
         return customerService.deleteAddress(customerId, addressId);
     }
 
@@ -59,18 +58,13 @@ public class CustomerController {
         return customerService.addProductsToCart(cartProductDto);
     }
 
-    @PutMapping("/{customerId}/cart/update/{productId}/{quantity}")
-    private List<CartProduct> updateCart(@PathVariable long customerId,@PathVariable long productId, @PathVariable int quantity){
-        return customerService.updateQuantityInCart(customerId,quantity,productId);
+    @PutMapping("/{customerId}/cart/update")
+    private List<CartProduct> updateCart(@PathVariable long customerId,@RequestBody CartProductDto cartProductDto){
+        return customerService.updateQuantityInCart(customerId,cartProductDto);
     }
 
     @DeleteMapping("/{customerId}/cart/delete/{id}")
     private List<CartProduct> deleteItemInCart(@PathVariable long customerId, @PathVariable long id){
         return customerService.deleteItemInCart(customerId,id);
-    }
-
-    @RequestMapping("/user")
-    public Principal user(Principal principal){
-        return principal;
     }
 }

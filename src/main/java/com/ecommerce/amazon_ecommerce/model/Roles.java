@@ -1,7 +1,6 @@
 package com.ecommerce.amazon_ecommerce.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,12 +8,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-@Getter
-@Setter
+@Data
 public class Roles {
 
     @Id
     private long id;
+
     private String name;
 
     @ManyToOne

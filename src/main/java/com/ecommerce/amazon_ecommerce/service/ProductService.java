@@ -1,5 +1,6 @@
 package com.ecommerce.amazon_ecommerce.service;
 
+import com.ecommerce.amazon_ecommerce.exceptions.ProductNotFoundException;
 import com.ecommerce.amazon_ecommerce.request_dto.ProductDto;
 import com.ecommerce.amazon_ecommerce.model.Category;
 import com.ecommerce.amazon_ecommerce.model.Product;
@@ -38,8 +39,8 @@ public class ProductService {
 
         int categoryNo = productDto.getCategory();
         Category category = categoryRepository.findCategoryByCategoryId(categoryNo);
-
         product.setCategory(category);
+
         repository.save(product);
 
         return repository.findAll();
@@ -47,11 +48,15 @@ public class ProductService {
 
     public List<Product> deleteProduct(long id)
     {
+        if(repository.findProductByProductId(id) == null)
+            throw new ProductNotFoundException("Sorry, Product Not Found.");
         repository.deleteByProductId(id);
         return repository.findAll();
     }
 
     public List<Product> findByProductName(String productName){
+        if(repository.findByProductNameContaining(productName).isEmpty())
+            throw new ProductNotFoundException("Sorry, Product Not Found.");
         return repository.findByProductNameContaining(productName);
     }
 

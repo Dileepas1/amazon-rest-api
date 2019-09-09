@@ -3,9 +3,6 @@ package com.ecommerce.amazon_ecommerce.model;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -15,16 +12,17 @@ import javax.persistence.*;
 @JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="addressId")
 @Table(name = "address")
 @Data
-@Getter
-@Setter
-@ToString
 public class Address {
 
     @Id
     private long addressId;
+
     private String street;
+
     private String city;
+
     private String pinCode;
+
     private String state;
 
     @ManyToOne
