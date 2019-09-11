@@ -26,6 +26,7 @@ public class Customer {
 
     private int age;
 
+    @JsonIgnore
     private String password;
 
 
