@@ -1,19 +1,15 @@
 package com.ecommerce.amazon_ecommerce.service;
 
+import com.ecommerce.amazon_ecommerce.model.*;
+import com.ecommerce.amazon_ecommerce.repository.*;
 import com.ecommerce.amazon_ecommerce.request_dto.AddressDto;
 import com.ecommerce.amazon_ecommerce.request_dto.CartProductDto;
-import com.ecommerce.amazon_ecommerce.model.Address;
-import com.ecommerce.amazon_ecommerce.model.CartProduct;
-import com.ecommerce.amazon_ecommerce.model.Customer;
-import com.ecommerce.amazon_ecommerce.model.Product;
-import com.ecommerce.amazon_ecommerce.repository.AddressRepository;
-import com.ecommerce.amazon_ecommerce.repository.CartProductRepository;
-import com.ecommerce.amazon_ecommerce.repository.CustomerRepository;
-import com.ecommerce.amazon_ecommerce.repository.ProductRepository;
 import com.ecommerce.amazon_ecommerce.request_dto.CustomerDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,14 +20,16 @@ public class CustomerService {
     private CartProductRepository cartProductRepository;
     private ProductRepository productRepository;
     private Address address;
+    private RolesRepository rolesRepository;
 
     @Autowired
-    public CustomerService(CustomerRepository customerRepository, AddressRepository addressRepository, CartProductRepository cartProductRepository, ProductRepository productRepository, Address address) {
+    public CustomerService(CustomerRepository customerRepository, AddressRepository addressRepository, CartProductRepository cartProductRepository, ProductRepository productRepository, Address address, RolesRepository rolesRepository) {
         this.customerRepository = customerRepository;
         this.addressRepository = addressRepository;
         this.cartProductRepository = cartProductRepository;
         this.productRepository = productRepository;
         this.address = address;
+        this.rolesRepository = rolesRepository;
     }
 
     public List<Customer> getAll(){
@@ -105,6 +103,20 @@ public class CustomerService {
         customer.setAge(customerDto.getAge());
         customer.setPassword(new BCryptPasswordEncoder().encode(customerDto.getPassword()));
         customerRepository.save(customer);
+        Roles roles = new Roles();
+        roles.setName("USER");
+        roles.setCustomer(customerRepository.findCustomerByPhoneNo(customerDto.getPhoneNo()));
+        rolesRepository.save(roles);
         return customerRepository.findCustomerByPhoneNo(customerDto.getPhoneNo());
+    }
+
+    public float totalAmount(long customerId){
+        float totalAmount = 0;
+        List<CartProduct> products = cartProductRepository.findCartProductByCustomerCart(customerRepository.findCustomerByCustomerId(customerId));
+        for(CartProduct cartProduct:products)
+        {
+            totalAmount += cartProduct.getProductCart().getProductPrice()*cartProduct.getQuantity();
+        }
+        return totalAmount;
     }
 }

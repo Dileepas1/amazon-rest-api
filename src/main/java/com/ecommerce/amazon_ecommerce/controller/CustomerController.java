@@ -76,4 +76,9 @@ public class CustomerController {
     private List<CartProduct> deleteItemInCart(@PathVariable long customerId, @PathVariable long id){
         return customerService.deleteItemInCart(customerId,id);
     }
+
+    @GetMapping("/{customerId}/cart/buy")
+    private float buy(@PathVariable long customerId){
+        return customerService.totalAmount(customerId);
+    }
 }

@@ -25,7 +25,7 @@ public class SwaggerConfig {
     private ApiInfo metaInfo(){
         return new ApiInfo(
                 "Amazon_ecommerce ",
-                "Implemented some of the functionality which is provided by the amazon Online Shopping.",
+                "Implementation of some of the functionalities provided by the amazon Online Shopping.",
                 "1.0",
                 "https://amazone_commerce_tc.html",
                 "Dileepa A S",
